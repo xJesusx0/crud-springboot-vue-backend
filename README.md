@@ -21,7 +21,7 @@ cd crud-springboot-vue-backend
 ```
 
 3. Crea el archivo `application.properties` en la ruta `src/main/resources`
-```
+```sh
 mkdir src/main/resources/
 touch src/main/resources/application.properties
 ```
@@ -53,3 +53,10 @@ spring.datasource.username=root
 
 > [!WARNING]
 > Asegurate que mysql esté corriendo y que los datos de conexion, la base de datos exista y que el nombre de la base de datos sea correcto
+
+> [!WARNING]
+> En caso de tener un error de que el puerto 8080 está en uso agrega esta linea en el archivo application.properties
+````
+server.port=8081
+```
+Asegurate de configurar el frontend para que haga las peticiones en el puerto correcto
