@@ -30,11 +30,20 @@ touch src/main/resources/application.properties
 ```
 spring.application.name=pruebatecnica
 spring.datasource.url=jdbc:mysql://localhost:3306/base_de_datos
-spring.datasource.username= usuario_mysql
-spring.datasource.password= contraseña_mysql 
+spring.datasource.username=usuario_mysql
+spring.datasource.password=contraseña_mysql 
 spring.jpa.hibernate.ddl-auto=update
 ```
 **Nota**: asegurate de cambiar `usuario_mysql`, `contraseña_mysql` y `base_de_datos` con tus datps de conexion a mysql
+
+**Nota**: asegurate de tener la sintaxis correcta
+```
+# NO
+spring.datasource.username= root
+
+# SI
+spring.datasource.username=root
+```
 
 5. Abre el proyecto con tu IDE favorito (IntelliJ, Eclipse, VS Code, etc.)
 
