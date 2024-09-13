@@ -7,6 +7,179 @@ API de SpringBoot que interactua con una base de datos de productos con los sigu
 - **MySQL**: Base de datos
 - **Java 17**: Requerido para ejecutar Spring Boot
 
+## Endpoints
+
+### GET /productos
+
+- **Ruta:**         /productos
+- **Metodo:**       GET
+- **Descripcion**   Devuelve un array con todos los productos 
+### GET /productos/{id}
+
+- **Ruta:**         /productos/{id}
+- **Metodo:**       GET
+- **Descripcion**   Devuelve la información de un producto basado en su id
+
+#### Posibles respuestas
+##### 200 - Producto encontrado
+```
+{
+	"data": {
+		"id": 6,
+		"nombre": "Pc de escritorio",
+		"precio": 400.0,
+		"cantidad": 10
+	},
+	"message": "Producto encontrado",
+	"success": true
+}
+```
+
+##### 404 - Producto no encontrado
+```
+{
+  "data": null,
+  "message": "Producto no encontrado",
+  "success": false
+}
+```
+
+### POST /productos
+
+- **Ruta:**         /productos
+- **Metodo:**       POST
+- **Descripcion**   Inserta un nuevo producto en la base de datos
+
+#### Cuerpo de la solicitud
+```
+{
+	"nombre":"Pc de escritorio",
+	"precio":400,
+	"cantidad":10
+}
+```
+#### Posibles respuestas
+
+##### 200 - Producto insertado correctamente
+```
+{
+	"data": null,
+	"message": "Producto guardado correctamente",
+	"success": true
+}
+```
+##### 400 - Los datos enviados en el cuerpo son invalidos
+```
+{
+  "data": null,
+  "message": "Producto invalido",
+  "success": false
+}
+```
+
+##### 500 - En caso de que haya un nombre duplicado
+
+##### 500 - Otro error interno del servidor 
+```
+{
+  "data": null,
+  "message": "Ha ocurrido un error al insertar el producto",
+  "success": false
+}
+```
+
+### PUT /productos/{id}
+
+- **Ruta:**         /productos/{id}
+- **Metodo:**       PUT
+- **Descripcion**   Actualiza un producto
+
+#### Cuerpo de la solicitud
+```
+{
+	"nombre":"Pc de escritorio",
+	"precio":400,
+	"cantidad":10
+}
+```
+#### Posibles respuestas
+
+##### 200 - Producto actualizado correctamente
+```
+{
+	"data": {
+		"id": 6,
+		"nombre": "Pc de escritorio",
+		"precio": 400.0,
+		"cantidad": 10
+	},
+	"message": "Producto actualizado correctamente",
+	"success": true
+}
+```
+
+##### 404 - Producto no encontrado
+```
+{
+  "data": null,
+  "message": "Producto no encontrado",
+  "success": false
+}
+```
+
+##### 400 - No se envio id en la peticion
+```
+{
+  "data": null,
+  "message": "El parámetro id no debe estar vacío",
+  "success": false
+}
+```
+
+##### 400 - Los datos enviados en el cuerpo son invalidos
+```
+{
+  "data": null,
+  "message": "Producto invalido",
+  "success": false
+}
+```
+##### 500 - En caso de que haya un nombre duplicado
+
+### DELETE /productos/{id}
+
+- **Ruta:**         /productos/{id}
+- **Metodo:**       DELETE
+- **Descripcion**   Elimina el producto con el id pasado en la url
+
+#### Posibles respuestas
+
+##### 200 - Producto eliminado correctamente
+```
+{
+  "data": null,
+  "message": "Producto eliminado correctamente",
+  "success": true
+}
+```
+
+##### 400 - No se envio id en la peticion
+```
+{
+  "data": null,
+  "message": "El parámetro id no debe estar vacío",
+  "success": false
+}
+```
+
+##### 404 - No se encontro el producto a eliminar
+```
+{
+  "data": null,
+  "message": "Producto no encontrado",
+  "success": false
+}
+```
 
 ## Poner en marcha el proyecto
 
