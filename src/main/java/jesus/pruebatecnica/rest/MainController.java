@@ -31,7 +31,6 @@ public class MainController {
     @GetMapping("/productos/{id}")
     public ResponseEntity obtenerProductoPorId(@PathVariable Long id) {
 
-        System.out.println(id);
         if(id == null){
             return ResponseEntity.status(400)
             .body(new ApiResponse(null, "El parametro id no debe estar vacio", false));
