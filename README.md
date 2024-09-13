@@ -47,21 +47,9 @@ spring.datasource.username=root
 
 5. Abre el proyecto con tu IDE favorito (IntelliJ, Eclipse, VS Code, etc.)
 
-    1. Espera que se instalen las dependencias necesarias
+6. Espera que se instalen las dependencias necesarias
 
-    2. Corre la aplicacion desde el IDE
-
-6. En caso de no tener IDE asegurate de tener maven instalado en tu sistema
-
-7. Instala las dependencias necesarias
-```sh
-mvn clean install
-```
-
-8. Corre la aplicacion de springboot
-```sh
-mvn spring-boot:run
-```
+7. Corre la aplicacion desde el IDE
 
 > [!WARNING]
 > Asegurate que mysql esté corriendo y que los datos de conexion, la base de datos exista y que el nombre de la base de datos sea correcto
