@@ -12,9 +12,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 
+import io.jsonwebtoken.lang.Arrays;
 import lombok.AllArgsConstructor;
-
 
 @Configuration
 @AllArgsConstructor
@@ -22,7 +23,7 @@ public class WebSecurityConfig {
 
     private final UserDetailsService userDetailsService;
     private final JWTAuthorizationFilter jwtAuthorizationFilter;
-    
+
     @Bean
     SecurityFilterChain filterChain(HttpSecurity httpSecurity, AuthenticationManager autManager) throws Exception {
 
@@ -31,6 +32,19 @@ public class WebSecurityConfig {
         jwtAuthenticationFilter.setFilterProcessesUrl("/login");
 
         return httpSecurity
+                .cors(cors -> cors
+                    .configurationSource(request -> {
+                        CorsConfiguration config = new CorsConfiguration();
+                        String allowedOrigins[] = {"*"};
+                        String allowedMethods[] = {"GET", "POST", "PUT", "DELETE"};
+                        String allowedHeaders[] = {"*"};
+
+                        config.setAllowedOrigins(Arrays.asList(allowedOrigins)); 
+                        config.setAllowedMethods(Arrays.asList(allowedMethods));
+                        config.setAllowedHeaders(Arrays.asList(allowedHeaders));
+                        config.addExposedHeader("Authorization");
+                        return config;
+                    }))
                 .csrf(CsrfConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/public/**").permitAll()
@@ -38,10 +52,9 @@ public class WebSecurityConfig {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilter(jwtAuthenticationFilter)
-                .addFilterBefore(jwtAuthorizationFilter,UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
-
 
     @Bean
     AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
